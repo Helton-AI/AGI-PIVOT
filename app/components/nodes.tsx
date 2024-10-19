@@ -157,7 +157,7 @@ export default function Component({ dataList }: { dataList: any[] }) {
                     }
                 }
             }
-            const newSquaresReverse = newSquares.reverse();
+            const newSquaresReverse = JSON.parse(JSON.stringify(newSquares)).reverse();
             for (let i = 0; i < newSquares.length; i++) {
                 if (dataList[i]) {
                     if (newSquaresReverse[i].blobId) {
@@ -168,7 +168,7 @@ export default function Component({ dataList }: { dataList: any[] }) {
                     break;
                 }
             }
-            setSquares(newSquares.reverse());
+            setSquares(newSquaresReverse.reverse());
         };
         generateSquares();
     }, [dataList]);
