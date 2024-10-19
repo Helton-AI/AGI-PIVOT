@@ -25,7 +25,7 @@ export default function Component() {
                 <h1>Walrus Blob Upload</h1>
                 <p className="lead">An example uploading and displaying files with Walrus.</p>
             </div>
-            <div className="row align-items-start gx-5 flex items-center justify-center">
+            <div className="align-items-start gx-5 flex items-center justify-center">
                 <section className="col-lg-5 mb-3">
                     <hgroup>
                         <h2>Blob Upload</h2>
@@ -45,14 +45,14 @@ export default function Component() {
                     <form id="upload-form" ref={uploadFormRef} action={formAction} className="mb-3">
                         <FieldSet />
                     </form>
-                    <div id="alert" className="alert alert-danger" role="alert" style={{ visibility: state.code === 0 ? "hidden" : "visible" }}>
+                    <div id="alert" className="alert alert-danger" role="alert" style={{ visibility: state.code >= 0 ? "hidden" : "visible" }}>
                         {state?.errorMsg}
                     </div>
                 </section>
-                <section className="col-lg-7">
+                {/* <section className="col-lg-7">
                     <h2>Uploaded Blobs</h2>
                     <div id="uploaded-blobs"></div>
-                </section>
+                </section> */}
             </div>
         </div>
     );
@@ -92,7 +92,7 @@ export function FieldSet() {
                 </label>
                 <input
                     id="aggregator-url-input"
-                    name="baseAggregator"
+                    name="baseAggregatorUrl"
                     type="url"
                     className="form-control"
                     placeholder={defaultAggregator}
@@ -108,7 +108,7 @@ export function FieldSet() {
                 <label htmlFor="file-input" className="form-label">
                     Blob to upload (<strong>Max 10 MiB size</strong> on the default publisher!)
                 </label>
-                <input id="file-input" name="file" type="file" className="form-control" required />
+                <input id="file-input" name="file" type="file" className="form-control" required aria-label="upload"/>
             </div>
 
             <div className="col-12">
@@ -123,7 +123,7 @@ export function FieldSet() {
             <button id="submit" className="btn btn-primary space-x-2" disabled={pending}>
                 {pending && <span id="submit-spinner" className="spinner-border spinner-border-sm" aria-hidden="true"></span>}
                 <span id="submit-text" role="status">
-                    {pending ? "Uploading ..." : "Upload"}
+                    {pending ? "Uploading ..." : "Upload Image"}
                 </span>
             </button>
         </fieldset>
