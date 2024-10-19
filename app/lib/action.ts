@@ -85,19 +85,19 @@ function displayUpload(
     if (storage_info && "alreadyCertified" in storage_info) {
         info = {
             status: "Already certified",
-            blobId: storage_info.alreadyCertified.blobId,
-            endEpoch: storage_info.alreadyCertified.endEpoch,
+            blobId: storage_info?.alreadyCertified?.blobId,
+            endEpoch: storage_info?.alreadyCertified?.endEpoch,
             suiRefType: "Previous Sui Certified Event",
-            suiRef: storage_info.alreadyCertified.event.txDigest,
+            suiRef: storage_info?.alreadyCertified?.event?.txDigest,
             suiBaseUrl: SUI_VIEW_TX_URL,
         };
     } else if (storage_info && "newlyCreated" in storage_info) {
         info = {
             status: "Newly created",
-            blobId: (storage_info as any).newlyCreated.blobObject.blobId,
-            endEpoch: (storage_info as any).newlyCreated.blobObject.storage.endEpoch,
+            blobId: (storage_info as any)?.newlyCreated?.blobObject?.blobId,
+            endEpoch: (storage_info as any)?.newlyCreated?.blobObject?.storage?.endEpoch,
             suiRefType: "Associated Sui Object",
-            suiRef: (storage_info as any).newlyCreated.blobObject.id,
+            suiRef: (storage_info as any)?.newlyCreated?.blobObject?.id,
             suiBaseUrl: SUI_VIEW_OBJECT_URL,
         };
     } else {

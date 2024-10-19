@@ -3,6 +3,7 @@
 import { useFormState, useFormStatus } from "react-dom";
 import { onSubmit } from "../lib/action";
 import { useEffect, useRef, useState } from "react";
+import { ErrorBoundary } from "./error-boundary";
 
 const initialState = {
     code: 0,
@@ -20,41 +21,43 @@ export default function Component() {
     }, [state, uploadFormRef]);
 
     return (
-        <div className="text-white flex flex-col items-center justify-center">
-            <div className="container my-3 flex flex-col items-center justify-center">
-                <h1>Walrus Blob Upload</h1>
-                <p className="lead">An example uploading and displaying files with Walrus.</p>
-            </div>
-            <div className="align-items-start gx-5 flex items-center justify-center">
-                <section className="col-lg-5 mb-3">
-                    <hgroup>
-                        <h2>Blob Upload</h2>
-                        <p>
-                            Upload blobs to Walrus, and display them on this page. See the
-                            <a href="https://docs.walrus.site" target="_blank">
-                                Walrus documentation
-                            </a>{" "}
-                            for more information. The file size is limited to 10 MiB on the default publisher. Use the{" "}
-                            <a href="https://docs.walrus.site/usage/client-cli.html" target="_blank">
-                                CLI tool
-                            </a>{" "}
-                            to store bigger files.
-                        </p>
-                    </hgroup>
+        <ErrorBoundary>
+            <div className="text-white flex flex-col items-center justify-center">
+                <div className="container my-3 flex flex-col items-center justify-center">
+                    <h1>Walrus Blob Upload</h1>
+                    <p className="lead">An example uploading and displaying files with Walrus.</p>
+                </div>
+                <div className="align-items-start gx-5 flex items-center justify-center">
+                    <section className="col-lg-5 mb-3">
+                        <hgroup>
+                            <h2>Blob Upload</h2>
+                            <p>
+                                Upload blobs to Walrus, and display them on this page. See the
+                                <a href="https://docs.walrus.site" target="_blank">
+                                    Walrus documentation
+                                </a>{" "}
+                                for more information. The file size is limited to 10 MiB on the default publisher. Use the{" "}
+                                <a href="https://docs.walrus.site/usage/client-cli.html" target="_blank">
+                                    CLI tool
+                                </a>{" "}
+                                to store bigger files.
+                            </p>
+                        </hgroup>
 
-                    <form id="upload-form" ref={uploadFormRef} action={formAction} className="mb-3">
-                        <FieldSet />
-                    </form>
-                    <div id="alert" className="alert alert-danger" role="alert" style={{ visibility: state.code >= 0 ? "hidden" : "visible" }}>
-                        {state?.errorMsg}
-                    </div>
-                </section>
-                {/* <section className="col-lg-7">
+                        <form id="upload-form" ref={uploadFormRef} action={formAction} className="mb-3">
+                            <FieldSet />
+                        </form>
+                        <div id="alert" className="alert alert-danger" role="alert" style={{ visibility: state.code >= 0 ? "hidden" : "visible" }}>
+                            {state?.errorMsg}
+                        </div>
+                    </section>
+                    {/* <section className="col-lg-7">
                     <h2>Uploaded Blobs</h2>
                     <div id="uploaded-blobs"></div>
                 </section> */}
+                </div>
             </div>
-        </div>
+        </ErrorBoundary>
     );
 }
 
@@ -108,7 +111,7 @@ export function FieldSet() {
                 <label htmlFor="file-input" className="form-label">
                     Blob to upload (<strong>Max 10 MiB size</strong> on the default publisher!)
                 </label>
-                <input id="file-input" name="file" type="file" className="form-control" required aria-label="upload"/>
+                <input id="file-input" name="file" type="file" className="form-control" required aria-label="upload" />
             </div>
 
             <div className="col-12">

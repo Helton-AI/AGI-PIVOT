@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Walrus from "@/app/components/walrus";
+import { ErrorBoundary } from "./error-boundary";
 
 interface SquarePosition {
     top: number;
@@ -191,18 +192,20 @@ export default function Component({ dataList }: { dataList: any[] }) {
     }, []);
 
     return (
-        <div className="min-h-screen bg-black flex items-center justify-center">
-            <div className="flex-1 h-full flex items-center justify-center">
-                <div ref={containerRef} className="relative w-[360px] h-[360px]">
-                    <div className="absolute inset-0 -m-4 bg-gray-900/30 rounded-3xl" />
-                    {squares.map((position, index) => (
-                        <IridescentSquare key={index} position={position} totalSquares={totalSquares} />
-                    ))}
+        <ErrorBoundary>
+            <div className="min-h-screen bg-black flex items-center justify-center">
+                <div className="flex-1 h-full flex items-center justify-center">
+                    <div ref={containerRef} className="relative w-[360px] h-[360px]">
+                        <div className="absolute inset-0 -m-4 bg-gray-900/30 rounded-3xl" />
+                        {squares.map((position, index) => (
+                            <IridescentSquare key={index} position={position} totalSquares={totalSquares} />
+                        ))}
+                    </div>
+                </div>
+                <div className="flex-1 bg-[#111] min-h-screen flex items-center justify-center">
+                    <Walrus />
                 </div>
             </div>
-            <div className="flex-1 bg-[#111] min-h-screen flex items-center justify-center">
-                <Walrus />
-            </div>
-        </div>
+        </ErrorBoundary>
     );
 }
